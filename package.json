@@ -127,7 +127,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-node": "^11.1.0",
     "express": "^5.2.1",
-    "got": "^14.6.6",
+    "got": "^11.8.2",
     "grunt": "^1.6.1",
     "grunt-babel": "^8.0.0",
     "grunt-browserify": "^6.0.0",
