@@ -1,7 +1,5 @@
 'use strict';
 
-const plugin = require("eslint-plugin-import");
-
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-browserify');
