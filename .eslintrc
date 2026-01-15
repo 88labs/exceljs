@@ -1,4 +1,7 @@
 {
+  "ignorePatterns": [
+    "**/*.d.ts"
+  ],
   "parserOptions": {
     "sourceType": "script"
   },
