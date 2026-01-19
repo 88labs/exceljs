@@ -33,6 +33,7 @@ module.exports = function(grunt) {
               // enable babel transpile for node_modules
               global: true,
               presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-logical-assignment-operators'],
               // core-js should not be transpiled
               // See https://github.com/zloirock/core-js/issues/514
               ignore: [/node_modules[\\/]core-js/],
@@ -123,7 +124,7 @@ module.exports = function(grunt) {
 
     jasmine: {
       options: {
-        version: '3.8.0',
+        version: '4.6.1',
         noSandbox: true,
       },
       dev: {
