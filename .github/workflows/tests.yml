@@ -64,6 +64,6 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm install typescript
-      - run: tsc --noEmit --target es2018
+      - run: tsc index.d.ts --ignoreConfig --types node
         env:
           CI: true
