@@ -36,7 +36,9 @@ jobs:
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1.0.0
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
-      - run: npm install
+      - name: Install dependencies
+        shell: bash
+        run: npm install || (sleep 30 && npm install) || (sleep 60 && npm install)
       - run: git checkout -- .npmrc || true
       - run: npm test
         env:
@@ -59,7 +61,8 @@ jobs:
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1.0.0
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
-      - run: npm install
+      - name: Install dependencies
+        run: npm install || (sleep 30 && npm install) || (sleep 60 && npm install)
       - run: git checkout -- .npmrc || true
       - run: npm run benchmark
         env:
@@ -82,7 +85,8 @@ jobs:
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1.0.0
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
-      - run: npm install
+      - name: Install dependencies
+        run: npm install || (sleep 30 && npm install) || (sleep 60 && npm install)
       - run: git checkout -- .npmrc || true
       - run: npm install typescript
       - run: tsc index.d.ts --ignoreConfig --types node
