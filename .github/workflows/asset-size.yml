@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
         with:
           fetch-depth: 0
-      - uses: chrysanthos/simple-asset-size-reporter@1.0.2
+      - uses: chrysanthos/simple-asset-size-reporter@3c86a594c400b40a4ebe6418da605a5d2755ef52 # 1.0.2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           files: '["dist/*.js"]'
