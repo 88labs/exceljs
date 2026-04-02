@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x, 17.x, 18.x, 19.x, 20.x]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        node-version: [18.x, 20.x, 22.x, 24.x]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -24,20 +24,12 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.symlinks true
         if: runner.os == 'Windows'
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #latest v4. TODO upgrade
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #latest  v3. TODO upgrade
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Create the npm cache directory
-        run: mkdir npm-cache && npm config set cache ./npm-cache --global
-      - name: Cache node modules
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 #latest v3 TODO upgrade
-        with:
-          path: ./npm-cache
-          key: v1-${{ runner.os }}-node-${{ matrix.node-version }}-npm-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            v1-${{ runner.os }}-node-${{ matrix.node-version }}-npm-
+          cache: 'npm'
       - run: npm install
       - run: npm test
         env:
@@ -49,19 +41,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #latest v4. TODO upgrade
-      - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #latest  v3. TODO upgrade
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           node-version: 18
-      - name: Create the npm cache directory
-        run: mkdir npm-cache && npm config set cache ./npm-cache --global
-      - name: Cache node modules
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 #latest v3 TODO upgrade
-        with:
-          path: ./npm-cache
-          key: v1-npm-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            v1-npm-
+          cache: 'npm'
       - run: npm install
       - run: npm run benchmark
         env:
@@ -73,21 +57,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #latest v4. TODO upgrade
-      - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #latest  v3. TODO upgrade
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           node-version: 18
-      - name: Create the npm cache directory
-        run: mkdir npm-cache && npm config set cache ./npm-cache --global
-      - name: Cache node modules
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 #latest v3 TODO upgrade
-        with:
-          path: ./npm-cache
-          key: v1-npm-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            v1-npm-
+          cache: 'npm'
       - run: npm install
       - run: npm install typescript
-      - run: tsc index.d.ts
+      - run: tsc index.d.ts --ignoreConfig --types node
         env:
           CI: true
