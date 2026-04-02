@@ -37,7 +37,7 @@ jobs:
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
       - run: npm install
-      - run: git checkout -- .npmrc
+      - run: git checkout -- .npmrc || true
       - run: npm test
         env:
           CI: true
@@ -60,7 +60,7 @@ jobs:
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
       - run: npm install
-      - run: git checkout -- .npmrc
+      - run: git checkout -- .npmrc || true
       - run: npm run benchmark
         env:
           CI: true
@@ -83,7 +83,7 @@ jobs:
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
       - run: npm install
-      - run: git checkout -- .npmrc
+      - run: git checkout -- .npmrc || true
       - run: npm install typescript
       - run: tsc index.d.ts --ignoreConfig --types node
         env:
