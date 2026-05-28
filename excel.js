@@ -4,10 +4,9 @@
  * or https://github.com/exceljs/exceljs/blob/master/LICENSE
  */
 
-if (parseInt(process.versions.node.split('.')[0], 10) < 10) {
-  throw new Error(
-    'For node versions older than 10, please use the ES5 Import: https://github.com/exceljs/exceljs#es5-imports'
-  );
+const [major, minor] = process.versions.node.split('.').map(Number);
+if (major < 20 || (major === 20 && minor < 19)) {
+  throw new Error('Please upgrade Node.js to version 20.19.0 or later (or 22.12.0+).');
 }
 
 module.exports = require('./lib/exceljs.nodejs.js');
