@@ -141,11 +141,7 @@ describe('Worksheet', () => {
       table.addRow([new Date('2019-08-05'), 5, 'Bird']);
       table.commit();
 
-      const newValues = spliceArray(values, 5, 0, [
-        new Date('2019-08-05'),
-        5,
-        'Bird',
-      ]);
+      const newValues = spliceArray(values, 5, 0, [new Date('2019-08-05'), 5, 'Bird']);
       checkTable('A1', ws, newValues);
     });
 
@@ -179,17 +175,8 @@ describe('Worksheet', () => {
       );
       table.commit();
 
-      const colValues = [
-        'Letter',
-        'a',
-        'b',
-        'c',
-        'd',
-        {formula: 'ROW()', result: 6},
-      ];
-      const newValues = values.map((rVals, i) =>
-        spliceArray(rVals, 2, 0, colValues[i])
-      );
+      const colValues = ['Letter', 'a', 'b', 'c', 'd', {formula: 'ROW()', result: 6}];
+      const newValues = values.map((rVals, i) => spliceArray(rVals, 2, 0, colValues[i]));
       checkTable('A1', ws, newValues);
     });
 
@@ -204,11 +191,7 @@ describe('Worksheet', () => {
 
       const newValues = [...values];
       newValues.splice(0, 1, ['Date', 'Code', 'Word']);
-      newValues.splice(5, 1, [
-        'Totals',
-        {formula: 'SUBTOTAL(104,TestTable[Code])', result: 4},
-        null,
-      ]);
+      newValues.splice(5, 1, ['Totals', {formula: 'SUBTOTAL(104,TestTable[Code])', result: 4}, null]);
 
       checkTable('A1', ws, newValues);
     });

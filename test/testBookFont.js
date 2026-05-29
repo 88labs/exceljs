@@ -7,11 +7,7 @@ workbook.xlsx
   .readFile(filename)
   .then(() => {
     workbook.eachSheet(worksheet => {
-      console.log(
-        `Sheet ${worksheet.id} - ${worksheet.name}, Dims=${JSON.stringify(
-          worksheet.dimensions
-        )}`
-      );
+      console.log(`Sheet ${worksheet.id} - ${worksheet.name}, Dims=${JSON.stringify(worksheet.dimensions)}`);
       worksheet.eachRow(row => {
         row.eachCell(cell => {
           if (cell.font.strike) {
