@@ -3,10 +3,17 @@
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
+    "esModuleInterop": true,
     "types": [
       "node",
       "mocha"
     ]
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   },
   "exclude": [
     "node_modules"

@@ -43,6 +43,8 @@ jobs:
         shell: bash
         run: npm install || (sleep 30 && npm install) || (sleep 60 && npm install)
       - run: git checkout -- .npmrc || true
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
       - run: npm test
         env:
           CI: true
