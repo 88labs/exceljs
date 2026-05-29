@@ -56,8 +56,9 @@ spec/integration/data/gold
 # optional switch off tests
 .disable-test-*
 
-# jasmine
-_SpecRunner.html
+# vitest browser-mode artefacts
+.vitest-attachments
+spec/browser/__screenshots__
 
 # Mac files
 .DS_Store
