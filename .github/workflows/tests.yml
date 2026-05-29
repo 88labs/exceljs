@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ '**' ]
+    branches: ["**"]
 
 permissions:
   contents: read
@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
@@ -48,6 +48,31 @@ jobs:
       - run: npm test
         env:
           CI: true
+
+  lint:
+    timeout-minutes: 5
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Use Node.js 22
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: "22"
+          cache: "npm"
+      - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1
+        with:
+          bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
+      - name: Install dependencies
+        shell: bash
+        run: npm install || (sleep 30 && npm install) || (sleep 60 && npm install)
+      - run: git checkout -- .npmrc || true
+      - name: Check formatting
+        run: npx oxfmt . --check
+      - run: npm run lint
 
   benchmark:
     timeout-minutes: 15
@@ -62,7 +87,7 @@ jobs:
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs
@@ -86,7 +111,7 @@ jobs:
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - uses: flatt-security/setup-takumi-guard-npm@8f53b50568e4466f2d92504f349c05b9ffcb8b59 # v1
         with:
           bot-id: "BT01KJW2C86AE4TDJRN1YH21K840" # 88labs

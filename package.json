@@ -39,9 +39,8 @@
     "clean": "rimraf build/ dist/",
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
-    "lint": "eslint --format node_modules/eslint-friendly-formatter .",
-    "lint:fix": "prettier-eslint --write $(pwd)'/**/*.js'",
-    "lint:staged": "lint-staged",
+    "lint": "oxlint .",
+    "lint:fix": "oxfmt . && oxlint --fix .",
     "preversion": "npm run clean && npm run build && npm run test",
     "postversion": "git push --no-verify && git push --tags --no-verify"
   },
@@ -51,11 +50,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "eslint --format node_modules/eslint-friendly-formatter",
-      "git add"
-    ]
+    "*.{js,ts}": ["oxfmt", "oxlint --fix"]
   },
   "keywords": [
     "xlsx",
@@ -106,20 +101,14 @@
     "crypto-browserify": "^3.12.1",
     "dirty-chai": "^2.0.1",
     "esbuild": "^0.28",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-node": "^11.1.0",
     "express": "^5.2.1",
     "got": "^11.8.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "mocha": "^11.7.5",
+    "oxfmt": "~0.52",
+    "oxlint": "^1.67",
     "playwright": "^1.60",
-    "prettier-eslint": "^16.4.2",
-    "prettier-eslint-cli": "^8.0.1",
     "rimraf": "^6.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",

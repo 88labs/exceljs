@@ -27,8 +27,8 @@ npm run clean           # rimraf build/ dist/ only
 Lint / format:
 
 ```sh
-npm run lint            # eslint with eslint-friendly-formatter
-npm run lint:fix        # prettier-eslint --write across all .js
+npm run lint       # oxlint
+npm run lint:fix   # oxfmt + oxlint --fix
 ```
 
 Tests — node suites use `mocha`; the browser suite is Vitest + Playwright/Chromium:
@@ -117,8 +117,8 @@ There is also a top-level `test/` directory (not `spec/`) containing older scrip
 ## Conventions that bite
 
 - **Node syntax target**: `engines.node` is `^20.19.0 || >=22.12.0`. ESLint enforces `node/no-unsupported-features/es-syntax` at `>=20.19.0` and `excel.js` throws on Node <20.19. Write Node 20+ syntax; the browser bundle targets ES2020 via esbuild (no more Babel/ES5 fallback — older browsers including IE 11 are no longer supported).
-- **ESLint specifics** (from `.eslintrc`, airbnb-base + prettier + node): single quotes, semicolons required, `max-len: 120` (comments + strings ignored), `arrow-parens: as-needed`, `comma-dangle: always-multiline` **except** for functions (no trailing comma in function arg lists), `no-console` allows only `console.warn`, `object-curly-spacing: never` (`{a, b}` not `{ a, b }`). `**/*.d.ts` is excluded from lint — `index.d.ts` is hand-maintained.
-- **Pre-commit**: husky → `lint-staged` runs `prettier-eslint --write` then `eslint` on staged `*.js`. Don't bypass with `--no-verify`.
+- **Lint/format tooling** (from `.oxlintrc.json`): oxlint for correctness + suspicious categories. Project-specific rules: single quotes, semicolons required, `no-console` allows only `console.warn`, `no-unused-vars` (vars: all, args: none), `no-use-before-define` (variables/classes/functions: false). `max-len:120` is not in oxlint scope (follow-up if needed). `**/*.d.ts` is excluded from lint — `index.d.ts` is hand-maintained. Formatting (including trailing whitespace) is handled by oxfmt. Note: `for...in` is not used in `lib/` (grep confirms), so `no-restricted-syntax` is not needed; `no-trailing-spaces` is not an oxlint rule — oxfmt handles trailing whitespace instead.
+- **Pre-commit**: husky → `lint-staged` runs `oxfmt` then `oxlint --fix` on staged `*.{js,ts}`. Don't bypass with `--no-verify`.
 - **Polyfill bookkeeping**: the bundle targets ES2020 (esbuild `target: 'es2020'`) and ships no polyfills. Consumers needing older runtimes bring their own. Don't reintroduce `core-js` / `regenerator-runtime`.
 - **PR template** (`.github/PULL_REQUEST_TEMPLATE.md`) requires a Summary, a Test plan, and, for typings changes, source-permalink evidence. Follow it.
 - **CI matrix**: Node 20/22/24 on Ubuntu and Windows. The Windows jobs disable `core.autocrlf` and enable `core.symlinks` — be mindful of CRLF if a test compares against a fixture XML file under `spec/integration/data/` or `spec/utils/data/`.
