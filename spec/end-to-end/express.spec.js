@@ -11,10 +11,7 @@ describe('Express', () => {
     const app = express();
     app.get('/workbook', async (req, res) => {
       const wb = await testutils.createTestBook(new Excel.Workbook(), 'xlsx');
-      res.setHeader(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      );
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=Report.xlsx');
       wb.xlsx.write(res).then(() => {
         res.end();
@@ -27,7 +24,7 @@ describe('Express', () => {
     server.close();
   });
 
-  it('downloads a workbook', async function() {
+  it('downloads a workbook', async function () {
     this.timeout(5000);
     const res = got.stream('http://127.0.0.1:3003/workbook', {
       decompress: false,

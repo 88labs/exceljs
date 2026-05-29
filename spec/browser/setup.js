@@ -11,12 +11,7 @@ beforeAll(
       const script = document.createElement('script');
       script.src = bundleUrl;
       script.onload = resolve;
-      script.onerror = () =>
-        reject(
-          new Error(
-            'Failed to load dist/exceljs.bare.js — run `npm run build` first'
-          )
-        );
+      script.onerror = () => reject(new Error('Failed to load dist/exceljs.bare.js — run `npm run build` first'));
       document.head.appendChild(script);
     })
 );

@@ -49,8 +49,6 @@ describe('ExcelJS', () => {
     ws.getCell('B2').value = '12pm';
 
     const buffer = await wb.csv.writeBuffer();
-    expect(buffer.toString()).toEqual(
-      '"Hello, World!",What time is it?\n7,12pm'
-    );
+    expect(buffer.toString()).toEqual('"Hello, World!",What time is it?\n7,12pm');
   });
 });
