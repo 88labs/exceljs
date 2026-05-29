@@ -16,10 +16,7 @@ const expectations = [
       drawings: [],
       sharedStrings: {count: 1},
     },
-    xml: fs
-      .readFileSync(`${__dirname}/data/content-types.01.xml`)
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: fs.readFileSync(`${__dirname}/data/content-types.01.xml`).toString().replace(/\r\n/g, '\n'),
     tests: ['render'],
   },
   {
@@ -36,10 +33,7 @@ const expectations = [
       drawings: [],
       sharedStrings: {count: 1},
     },
-    xml: fs
-      .readFileSync(`${__dirname}/data/content-types.02.xml`)
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: fs.readFileSync(`${__dirname}/data/content-types.02.xml`).toString().replace(/\r\n/g, '\n'),
     tests: ['render'],
   },
   {
@@ -52,10 +46,7 @@ const expectations = [
       media: [],
       drawings: [],
     },
-    xml: fs
-      .readFileSync(`${__dirname}/data/content-types.03.xml`)
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: fs.readFileSync(`${__dirname}/data/content-types.03.xml`).toString().replace(/\r\n/g, '\n'),
     tests: ['render'],
   },
   {
@@ -71,10 +62,7 @@ const expectations = [
       ],
       drawings: [],
     },
-    xml: fs
-      .readFileSync(`${__dirname}/data/content-types.04.xml`)
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: fs.readFileSync(`${__dirname}/data/content-types.04.xml`).toString().replace(/\r\n/g, '\n'),
     tests: ['render'],
   },
 ];

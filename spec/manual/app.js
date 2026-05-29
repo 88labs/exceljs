@@ -12,9 +12,7 @@ console.log('Copying bundle.js to public folder');
 fs.createReadStream(`${__dirname}/../../dist/exceljs.min.js`).pipe(
   fs.createWriteStream(`${__dirname}/public/exceljs.min.js`)
 );
-fs.createReadStream(`${__dirname}/../../dist/exceljs.js`).pipe(
-  fs.createWriteStream(`${__dirname}/public/exceljs.js`)
-);
+fs.createReadStream(`${__dirname}/../../dist/exceljs.js`).pipe(fs.createWriteStream(`${__dirname}/public/exceljs.js`));
 
 const app = express();
 
