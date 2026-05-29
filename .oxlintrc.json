@@ -1,0 +1,79 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "node"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "ignorePatterns": ["**/*.d.ts", "build/**", "dist/**", "out/**", "spec/manual/public/**"],
+  "env": {
+    "builtin": true,
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "no-console": ["error", { "allow": ["warn"] }],
+    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
+    "no-use-before-define": ["error", { "variables": false, "classes": false, "functions": false }],
+    "no-await-in-loop": "off",
+    "class-methods-use-this": "off",
+    "default-case": "off",
+    "func-names": "off",
+    "no-continue": "off",
+    "no-multi-assign": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-prototype-builtins": "off",
+    "no-return-assign": "off",
+    "no-underscore-dangle": "off",
+    "global-require": "off",
+    "unicorn/no-empty-file": "off",
+    "no-unassigned-vars": "off"
+  },
+  "overrides": [
+    {
+      "files": ["spec/**", "test/**"],
+      "env": {
+        "mocha": true
+      },
+      "globals": {
+        "verquire": "readonly",
+        "expect": "readonly"
+      },
+      "rules": {
+        "no-console": "off",
+        "no-sparse-arrays": "off",
+        "no-new": "off",
+        "no-underscore-dangle": "off"
+      }
+    },
+    {
+      "files": ["scripts/**", "test/**"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["lib/doc/worksheet.js"],
+      "rules": {
+        "getter-return": "off",
+        "unicorn/no-new-array": "off"
+      }
+    },
+    {
+      "files": ["lib/csv/stream-converter.js"],
+      "rules": {
+        "no-unassigned-vars": "off"
+      }
+    },
+    {
+      "files": ["spec/browser/**"],
+      "env": {
+        "browser": true
+      },
+      "rules": {
+        "unicorn/prefer-add-event-listener": "off"
+      }
+    }
+  ]
+}
