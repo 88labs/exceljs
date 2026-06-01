@@ -36,7 +36,7 @@
     "test:dist": "mocha --require spec/config/setup spec/dist --recursive",
     "test:typescript": "mocha -r ts-node/register spec/typescript/**/*.spec.ts",
     "build": "node scripts/build.mjs",
-    "install-build": "npm install && npm run build",
+    "install-build": "npm ci && npm run build",
     "clean": "rimraf build/ dist/",
     "clean-build": "npm run clean && npm run build",
     "benchmark": "node --expose-gc benchmark",
