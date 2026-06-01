@@ -38,6 +38,7 @@
     "build": "node scripts/build.mjs",
     "install-build": "npm install && npm run build",
     "clean": "rimraf build/ dist/",
+    "clean-build": "npm run clean && npm run build",
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
     "lint": "oxlint .",
