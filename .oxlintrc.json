@@ -16,6 +16,7 @@
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-use-before-define": ["error", { "variables": false, "classes": false, "functions": false }],
     "no-await-in-loop": "off",
+    "unicorn/no-array-sort": "off",
     "class-methods-use-this": "off",
     "default-case": "off",
     "func-names": "off",
