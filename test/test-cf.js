@@ -22,9 +22,11 @@ function addTable(ws, ref) {
 
 function addDateTable(ws, ref) {
   const range = new Range(ref);
-  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach((day, index) => {
-    ws.getCell(range.top, range.left + index).value = day;
-  });
+  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(
+    (day, index) => {
+      ws.getCell(range.top, range.left + index).value = day;
+    },
+  );
   const DAY = 86400000;
   const now = Date.now();
   const today = now - (now % DAY);

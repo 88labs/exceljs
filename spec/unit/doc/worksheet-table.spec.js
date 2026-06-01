@@ -171,7 +171,7 @@ describe('Worksheet', () => {
           filterButton: true,
         },
         ['a', 'b', 'c', 'd'],
-        2
+        2,
       );
       table.commit();
 
@@ -191,7 +191,11 @@ describe('Worksheet', () => {
 
       const newValues = [...values];
       newValues.splice(0, 1, ['Date', 'Code', 'Word']);
-      newValues.splice(5, 1, ['Totals', {formula: 'SUBTOTAL(104,TestTable[Code])', result: 4}, null]);
+      newValues.splice(5, 1, [
+        'Totals',
+        {formula: 'SUBTOTAL(104,TestTable[Code])', result: 4},
+        null,
+      ]);
 
       checkTable('A1', ws, newValues);
     });

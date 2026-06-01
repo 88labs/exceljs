@@ -43,7 +43,9 @@ module.exports = {
                 expect(row.getCell('A').type).to.equal(ExcelJS.ValueType.Number);
                 expect(row.getCell('B').value).to.deep.equal(streamedValues.B1);
                 expect(row.getCell('B').type).to.equal(ExcelJS.ValueType.String);
-                expect(Math.abs(row.getCell('C').value - streamedValues.C1)).to.be.below(dateAccuracy);
+                expect(Math.abs(row.getCell('C').value - streamedValues.C1)).to.be.below(
+                  dateAccuracy,
+                );
                 expect(row.getCell('C').type).to.equal(ExcelJS.ValueType.Number);
 
                 expect(row.getCell('D').value).to.deep.equal(streamedValues.D1);
@@ -105,7 +107,9 @@ module.exports = {
                 expect(Math.abs(row.getCell('E').value - 1.6)).to.be.below(0.00000001);
                 expect(row.getCell('E').type).to.equal(ExcelJS.ValueType.Number);
 
-                expect(Math.abs(row.getCell('F').value - streamedValues.C1)).to.be.below(dateAccuracy);
+                expect(Math.abs(row.getCell('F').value - streamedValues.C1)).to.be.below(
+                  dateAccuracy,
+                );
                 expect(row.getCell('F').type).to.equal(ExcelJS.ValueType.Number);
                 break;
 

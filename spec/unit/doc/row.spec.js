@@ -35,7 +35,13 @@ describe('Row', () => {
       text: 'www.hyperlink.com',
     };
 
-    const values = [, 5, 'Hello, World!', , {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'}];
+    const values = [
+      ,
+      5,
+      'Hello, World!',
+      ,
+      {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'},
+    ];
     expect(row1.values).to.deep.equal(values);
     expect(row1.dimensions).to.deep.equal({min: 1, max: 4});
 

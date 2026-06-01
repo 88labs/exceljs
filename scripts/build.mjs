@@ -19,7 +19,7 @@ async function build() {
   await mkdir(dirname(fsStubPath), {recursive: true});
   await writeFile(
     fsStubPath,
-    '// empty fs shim for browser bundles — matches the historical browserify behavior\nmodule.exports = {};\n'
+    '// empty fs shim for browser bundles — matches the historical browserify behavior\nmodule.exports = {};\n',
   );
 
   const sharedOptions = {

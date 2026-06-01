@@ -11,7 +11,21 @@ const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDay())
 
 ws.columns = [{key: 'date', width: 32}, {key: 'number'}, {key: 'word'}];
 
-const words = ['Twas', 'brillig', 'and', 'the', 'slithy', 'toves', 'did', 'gyre', 'and', 'gimble', 'in', 'the', 'wabe'];
+const words = [
+  'Twas',
+  'brillig',
+  'and',
+  'the',
+  'slithy',
+  'toves',
+  'did',
+  'gyre',
+  'and',
+  'gimble',
+  'in',
+  'the',
+  'wabe',
+];
 
 ws.addTable({
   name: 'TestTable',

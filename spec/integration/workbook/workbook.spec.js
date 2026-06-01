@@ -223,7 +223,12 @@ describe('Workbook', () => {
       ws.pageSetup.printTitlesRow = '1:2';
 
       for (let i = 0; i < 100; i++) {
-        ws.addRow(['repeated column, not repeated row', 'repeated column, not repeated row', 'no repeat', 'no repeat']);
+        ws.addRow([
+          'repeated column, not repeated row',
+          'repeated column, not repeated row',
+          'no repeat',
+          'no repeat',
+        ]);
       }
 
       return wb.xlsx
@@ -383,7 +388,9 @@ describe('Workbook', () => {
     });
 
     it('dataValidations', async () => {
-      const wb = await testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx', ['dataValidations']);
+      const wb = await testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx', [
+        'dataValidations',
+      ]);
 
       return wb.xlsx
         .writeFile(TEST_XLSX_FILE_NAME)
@@ -761,28 +768,44 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('blort');
 
-            expect(ws2.getCell('B2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('B2').font).to.deep.equal(
+              testUtils.styles.fonts.broadwayRedOutline20,
+            );
             expect(ws2.getCell('B2').border).to.deep.equal(testUtils.styles.borders.doubleRed);
             expect(ws2.getCell('B2').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-            expect(ws2.getCell('B2').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('B2').alignment).to.deep.equal(
+              testUtils.styles.namedAlignments.middleCentre,
+            );
             expect(ws2.getCell('B2').numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('B3').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('B3').font).to.deep.equal(
+              testUtils.styles.fonts.broadwayRedOutline20,
+            );
             expect(ws2.getCell('B3').border).to.deep.equal(testUtils.styles.borders.doubleRed);
             expect(ws2.getCell('B3').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-            expect(ws2.getCell('B3').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('B3').alignment).to.deep.equal(
+              testUtils.styles.namedAlignments.middleCentre,
+            );
             expect(ws2.getCell('B3').numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('C2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('C2').font).to.deep.equal(
+              testUtils.styles.fonts.broadwayRedOutline20,
+            );
             expect(ws2.getCell('C2').border).to.deep.equal(testUtils.styles.borders.doubleRed);
             expect(ws2.getCell('C2').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-            expect(ws2.getCell('C2').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('C2').alignment).to.deep.equal(
+              testUtils.styles.namedAlignments.middleCentre,
+            );
             expect(ws2.getCell('C2').numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('C3').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('C3').font).to.deep.equal(
+              testUtils.styles.fonts.broadwayRedOutline20,
+            );
             expect(ws2.getCell('C3').border).to.deep.equal(testUtils.styles.borders.doubleRed);
             expect(ws2.getCell('C3').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-            expect(ws2.getCell('C3').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('C3').alignment).to.deep.equal(
+              testUtils.styles.namedAlignments.middleCentre,
+            );
             expect(ws2.getCell('C3').numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
           });
       });
@@ -861,7 +884,7 @@ describe('Workbook', () => {
       expect.fail('should fail for given argument');
     } catch (e) {
       expect(e.message).to.equal(
-        "Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"
+        "Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?",
       );
     }
   });

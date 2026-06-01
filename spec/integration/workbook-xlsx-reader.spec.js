@@ -14,7 +14,9 @@ describe('WorkbookReader', () => {
       this.timeout(10000);
       const wb = await testutils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
-      return wb.xlsx.writeFile(TEST_FILE_NAME).then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
+      return wb.xlsx
+        .writeFile(TEST_FILE_NAME)
+        .then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
     });
   });
 
@@ -29,7 +31,7 @@ describe('WorkbookReader', () => {
           },
           err => {
             expect(err.message).to.equal('Max row count (10) exceeded');
-          }
+          },
         );
       });
 
@@ -42,7 +44,7 @@ describe('WorkbookReader', () => {
           },
           err => {
             expect(err.message).to.equal('Max row count (100) exceeded');
-          }
+          },
         );
       });
 
@@ -66,7 +68,7 @@ describe('WorkbookReader', () => {
             },
             err => {
               expect(err.message).to.equal('Max column count (15) exceeded');
-            }
+            },
           );
       });
 
@@ -79,7 +81,7 @@ describe('WorkbookReader', () => {
           },
           err => {
             expect(err.message).to.equal('Max column count (10) exceeded');
-          }
+          },
         );
       });
 
@@ -105,13 +107,15 @@ describe('WorkbookReader', () => {
             },
             err => {
               expect(err.message).to.equal('Max row count (10) exceeded');
-            }
+            },
           );
       });
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new ExcelJS.Workbook();
-        return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/fibonacci.xlsx'), {maxRows: 20});
+        return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/fibonacci.xlsx'), {
+          maxRows: 20,
+        });
       });
     });
   });
@@ -145,9 +149,11 @@ describe('WorkbookReader', () => {
     before(function () {
       const testContext = this;
       const workbook = new ExcelJS.Workbook();
-      return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/formulas.xlsx')).then(() => {
-        testContext.worksheet = workbook.getWorksheet();
-      });
+      return workbook.xlsx
+        .read(fs.createReadStream('./spec/integration/data/formulas.xlsx'))
+        .then(() => {
+          testContext.worksheet = workbook.getWorksheet();
+        });
     });
 
     describe('with a cell that contains a regular formula', () => {
@@ -233,7 +239,7 @@ describe('WorkbookReader', () => {
             expect(err.message).to.equal('3:1: text data outside of root node.');
             // Wait a tick before checking for an unhandled rejection
             return new Promise(setImmediate);
-          }
+          },
         )
         .then(() => {
           expect(unhandledRejection).to.be.undefined();
@@ -252,9 +258,11 @@ describe('WorkbookReader', () => {
     before(function () {
       const testContext = this;
       const workbook = new ExcelJS.Workbook();
-      return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/images.xlsx')).then(() => {
-        testContext.worksheet = workbook.getWorksheet();
-      });
+      return workbook.xlsx
+        .read(fs.createReadStream('./spec/integration/data/images.xlsx'))
+        .then(() => {
+          testContext.worksheet = workbook.getWorksheet();
+        });
     });
 
     describe('with image`s tl anchor', () => {
@@ -338,7 +346,9 @@ describe('WorkbookReader', () => {
   describe('with a spreadsheet containing a defined name that kinda looks like it contains a range', () => {
     it('should not crash', () => {
       const workbook = new ExcelJS.Workbook();
-      return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/bogus-defined-name.xlsx'));
+      return workbook.xlsx.read(
+        fs.createReadStream('./spec/integration/data/bogus-defined-name.xlsx'),
+      );
     });
   });
 });

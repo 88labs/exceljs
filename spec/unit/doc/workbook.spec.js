@@ -247,8 +247,12 @@ describe('Workbook', () => {
         expect(ws.getCell(`C${i}`).fill).to.deep.equal(testUtils.styles.fills.redDarkVertical);
       }
       expect(ws.getCell('A4').alignment).to.deep.equal(testUtils.styles.namedAlignments.topLeft);
-      expect(ws.getCell('B4').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
-      expect(ws.getCell('C4').alignment).to.deep.equal(testUtils.styles.namedAlignments.bottomRight);
+      expect(ws.getCell('B4').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.middleCentre,
+      );
+      expect(ws.getCell('C4').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.bottomRight,
+      );
 
       expect(ws.getRow(1).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
       expect(ws.getRow(2).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);

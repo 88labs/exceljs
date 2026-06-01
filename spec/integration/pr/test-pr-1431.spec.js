@@ -38,7 +38,7 @@ describe('github issues', () => {
           expect(row.values[2]).to.equal(rowData[1]);
 
           resolve();
-        })
+        }),
       );
       workbookReader.on('error', reject);
 
