@@ -27,7 +27,7 @@ describe('WorkbookWriter', () => {
       };
       const wb = await testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
-        'xlsx'
+        'xlsx',
       );
 
       return wb
@@ -121,7 +121,7 @@ describe('WorkbookWriter', () => {
       };
       const wb = await testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
-        'xlsx'
+        'xlsx',
       );
 
       return wb
@@ -173,46 +173,30 @@ describe('WorkbookWriter', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('blort');
-          ['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3'].forEach(
-            address => {
-              expect(ws2.getCell(address).value).to.equal(address);
-            }
-          );
-          expect(ws2.getCell('B1').font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16
-          );
+          ['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3'].forEach(address => {
+            expect(ws2.getCell(address).value).to.equal(address);
+          });
+          expect(ws2.getCell('B1').font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
           expect(ws2.getCell('B1').alignment).to.deep.equal(
-            testUtils.styles.namedAlignments.middleCentre
+            testUtils.styles.namedAlignments.middleCentre,
           );
-          expect(ws2.getCell('A2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20
-          );
-          expect(ws2.getCell('B2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20
-          );
-          expect(ws2.getCell('C2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20
-          );
-          expect(ws2.getCell('B3').font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16
-          );
+          expect(ws2.getCell('A2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+          expect(ws2.getCell('B2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+          expect(ws2.getCell('C2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
+          expect(ws2.getCell('B3').font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
           expect(ws2.getCell('B3').alignment).to.deep.equal(
-            testUtils.styles.namedAlignments.middleCentre
+            testUtils.styles.namedAlignments.middleCentre,
           );
 
-          expect(ws2.getColumn(2).font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16
-          );
+          expect(ws2.getColumn(2).font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
           expect(ws2.getColumn(2).alignment).to.deep.equal(
-            testUtils.styles.namedAlignments.middleCentre
+            testUtils.styles.namedAlignments.middleCentre,
           );
           expect(ws2.getColumn(2).width).to.equal(9);
 
           expect(ws2.getColumn(4).width).to.equal(undefined);
 
-          expect(ws2.getRow(2).font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20
-          );
+          expect(ws2.getRow(2).font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
         });
     });
 
@@ -263,7 +247,7 @@ describe('WorkbookWriter', () => {
         });
     });
 
-    it('A lot of sheets', function() {
+    it('A lot of sheets', function () {
       this.timeout(5000);
 
       let i;
@@ -374,7 +358,7 @@ describe('WorkbookWriter', () => {
       const wb = await testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
         'xlsx',
-        ['dataValidations']
+        ['dataValidations'],
       );
 
       return wb
@@ -399,7 +383,7 @@ describe('WorkbookWriter', () => {
       const wb = await testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
         'xlsx',
-        ['dataValidations']
+        ['dataValidations'],
       );
 
       return wb
@@ -572,7 +556,7 @@ describe('WorkbookWriter', () => {
       const wb = await testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
         'xlsx',
-        ['conditionalFormatting']
+        ['conditionalFormatting'],
       );
 
       return wb

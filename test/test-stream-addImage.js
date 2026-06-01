@@ -7,16 +7,15 @@ const filename = process.argv[2];
 const wb = new Excel.stream.xlsx.WorkbookWriter({filename});
 const ws1 = wb.addWorksheet('Foo');
 const imageId1 = wb.addImage({
-    filename: path.join(__dirname, 'data/image2.png'),
-    extension: 'png',
-  });
+  filename: path.join(__dirname, 'data/image2.png'),
+  extension: 'png',
+});
 const imageId2 = wb.addImage({
-  filename:  path.join(__dirname, 'data/bubbles.jpg'),
+  filename: path.join(__dirname, 'data/bubbles.jpg'),
   extension: 'jpg',
 });
-  
-ws1.addImage(imageId1, {tl: {col: 0.25, row: 0.7},
-  ext: {width: 160, height: 60}});
+
+ws1.addImage(imageId1, {tl: {col: 0.25, row: 0.7}, ext: {width: 160, height: 60}});
 
 ws1.addImage(imageId2, 'C1:F10');
 
@@ -39,4 +38,3 @@ wb.commit()
   .catch(error => {
     console.log(error.message);
   });
-

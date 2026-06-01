@@ -9,9 +9,7 @@ const expectations = [
     create: () => new SheetViewXform(),
     preparedModel: {workbookViewId: 0, state: 'normal', activeCell: 'G4'},
     xml:
-      '<sheetView workbookViewId="0">' +
-      '<selection activeCell="G4" sqref="G4"/>' +
-      '</sheetView>',
+      '<sheetView workbookViewId="0">' + '<selection activeCell="G4" sqref="G4"/>' + '</sheetView>',
     parsedModel: {
       workbookViewId: 0,
       rightToLeft: false,

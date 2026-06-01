@@ -181,67 +181,18 @@ To be clear, all contributions added to this library will be included in the lib
 const ExcelJS = require('exceljs');
 ```
 
-## ES5 Imports[⬆](#contents)<!-- Link generated with jump2header -->
+## Browser bundles[⬆](#contents)<!-- Link generated with jump2header -->
 
-To use the ES5 transpiled code, for example for node.js versions older than 10, use the dist/es5 path.
+ExcelJS publishes two esbuild IIFE bundles (ES2020, no polyfills) inside the `dist/` folder:
 
-```javascript
-const ExcelJS = require('exceljs/dist/es5');
-```
+- `dist/exceljs.js` — full bundle, kept for back-compat
+- `dist/exceljs.bare.js` — same content; consumers bring their own polyfills if needed
 
-**Note:** The ES5 build has an implicit dependency on a number of polyfills which are no longer
- explicitly added by exceljs.
- You will need to add "core-js" and "regenerator-runtime" to your dependencies and
- include the following requires in your code before the exceljs import:
-
-```javascript
-// polyfills required by exceljs
-require('core-js/modules/es.promise');
-require('core-js/modules/es.string.includes');
-require('core-js/modules/es.object.assign');
-require('core-js/modules/es.object.keys');
-require('core-js/modules/es.symbol');
-require('core-js/modules/es.symbol.async-iterator');
-require('regenerator-runtime/runtime');
-
-const ExcelJS = require('exceljs/dist/es5');
-```
-
-For IE 11, you'll also need a polyfill to support unicode regex patterns. For example,
-
-```js
-const rewritePattern = require('regexpu-core');
-const {generateRegexpuOptions} = require('@babel/helper-create-regexp-features-plugin/lib/util');
-
-const {RegExp} = global;
-try {
-  new RegExp('a', 'u');
-} catch (err) {
-  global.RegExp = function(pattern, flags) {
-    if (flags && flags.includes('u')) {
-      return new RegExp(rewritePattern(pattern, flags, generateRegexpuOptions({flags, pattern})));
-    }
-    return new RegExp(pattern, flags);
-  };
-  global.RegExp.prototype = RegExp.prototype;
-}
-```
-
-## Browserify[⬆](#contents)<!-- Link generated with jump2header -->
-
-ExcelJS publishes two browserified bundles inside the dist/ folder:
-
-One with implicit dependencies on core-js polyfills...
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
 <script src="exceljs.js"></script>
 ```
 
-And one without...
-```html
-<script src="--your-project's-pollyfills-here--"></script>
-<script src="exceljs.bare.js"></script>
-```
+Both bundles target ES2020 and do not include polyfills. If you need to support older browsers, add your own polyfills before the script tag.
 
 
 # Interface[⬆](#contents)<!-- Link generated with jump2header -->

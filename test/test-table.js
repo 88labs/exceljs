@@ -7,11 +7,7 @@ const wb = new Excel.Workbook();
 const ws = wb.addWorksheet('Foo');
 
 const now = new Date();
-const today = Date.UTC(
-  now.getUTCFullYear(),
-  now.getUTCMonth(),
-  now.getUTCDay()
-);
+const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDay());
 
 ws.columns = [{key: 'date', width: 32}, {key: 'number'}, {key: 'word'}];
 
@@ -54,7 +50,7 @@ ws.addTable({
       style: {font: {bold: true, name: 'Comic Sans MS'}},
     },
   ],
-  rows: words.map((word, i) => [new Date(+today + (86400 * i)), i, word]),
+  rows: words.map((word, i) => [new Date(+today + 86400 * i), i, word]),
 });
 
 const stopwatch = new HrStopwatch();
