@@ -103,7 +103,9 @@ const self = {
       ws.getCell(row, 1).value = tools.concatenateFormula(type);
       self.dataValidations.operators.forEach((operator, cIndex) => {
         const col = 3 + cIndex;
-        expect(ws.getCell(row, col).dataValidation).to.deep.equal(self.createDataValidations(type, operator));
+        expect(ws.getCell(row, col).dataValidation).to.deep.equal(
+          self.createDataValidations(type, operator),
+        );
       });
     });
 

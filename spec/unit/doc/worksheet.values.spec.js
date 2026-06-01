@@ -253,7 +253,12 @@ describe('Worksheet', () => {
       expect(ws.getRow(2).values).to.deep.equal([, 1, 'John Doe', dateValue1]);
       expect(ws.getRow(3).values).to.deep.equal([, 2, 'Jane Doe', dateValue2]);
 
-      const values = [, [, 'Id', 'Name', 'D.O.B.'], [, 1, 'John Doe', dateValue1], [, 2, 'Jane Doe', dateValue2]];
+      const values = [
+        ,
+        [, 'Id', 'Name', 'D.O.B.'],
+        [, 1, 'John Doe', dateValue1],
+        [, 2, 'Jane Doe', dateValue2],
+      ];
       ws.eachRow((row, rowNumber) => {
         expect(row.values).to.deep.equal(values[rowNumber]);
         row.eachCell((cell, colNumber) => {

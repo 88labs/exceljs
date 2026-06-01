@@ -109,7 +109,13 @@ module.exports = {
         ws.getCell('C4').value = 4.3;
         ws.addRow(['5,1', '5,2', '5,3']);
 
-        ws.spliceRows(2, 2, ['one', 'two', 'three'], ['une', 'deux', 'trois'], ['uno', 'due', 'tre']);
+        ws.spliceRows(
+          2,
+          2,
+          ['one', 'two', 'three'],
+          ['une', 'deux', 'trois'],
+          ['uno', 'due', 'tre'],
+        );
       },
 
       checkSheet(wb) {
@@ -258,7 +264,13 @@ module.exports = {
         expect(ws).to.not.be.undefined();
 
         expect(ws.getRow(1).values).to.deep.equal([, '1,1', '1,2', '1,3', '1,4']);
-        expect(ws.getRow(2).values).to.deep.equal([, 'two-one', 'two-two', 'two-three', 'two-four']);
+        expect(ws.getRow(2).values).to.deep.equal([
+          ,
+          'two-one',
+          'two-two',
+          'two-three',
+          'two-four',
+        ]);
         expect(ws.getRow(3).values).to.deep.equal([, '3,1', '3,2', '3,3', '3,4']);
 
         expect(ws.getCell('B1').style).to.deep.equal({
@@ -554,7 +566,12 @@ module.exports = {
         ws.getCell('E4').value = 4.5;
         ws.addRow(['5,1', '5,2', '5,3', '5,4', '5,5']);
 
-        ws.spliceColumns(2, 2, ['one', 'two', 'three', 'four', 'five'], ['une', 'deux', 'trois', 'quatre', 'cinq']);
+        ws.spliceColumns(
+          2,
+          2,
+          ['one', 'two', 'three', 'four', 'five'],
+          ['une', 'deux', 'trois', 'quatre', 'cinq'],
+        );
       },
 
       checkSheet(wb) {
@@ -584,7 +601,7 @@ module.exports = {
           2,
           ['one', 'two', 'three', 'four', 'five'],
           ['une', 'deux', 'trois', 'quatre', 'cinq'],
-          ['uno', 'due', 'tre', 'quatro', 'cinque']
+          ['uno', 'due', 'tre', 'quatro', 'cinque'],
         );
       },
 
@@ -596,7 +613,15 @@ module.exports = {
         expect(ws.getRow(2).values).to.deep.equal([, '2,1', 'two', 'deux', 'due', '2,4', '2,5']);
         expect(ws.getRow(3).values).to.deep.equal([, , 'three', 'trois', 'tre']);
         expect(ws.getRow(4).values).to.deep.equal([, 4.1, 'four', 'quatre', 'quatro', , 4.5]);
-        expect(ws.getRow(5).values).to.deep.equal([, '5,1', 'five', 'cinq', 'cinque', '5,4', '5,5']);
+        expect(ws.getRow(5).values).to.deep.equal([
+          ,
+          '5,1',
+          'five',
+          'cinq',
+          'cinque',
+          '5,4',
+          '5,5',
+        ]);
       },
     },
     removeStyle: {

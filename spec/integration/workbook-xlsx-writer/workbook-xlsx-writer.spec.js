@@ -25,7 +25,10 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: true,
       };
-      const wb = await testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx');
+      const wb = await testUtils.createTestBook(
+        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        'xlsx',
+      );
 
       return wb
         .commit()
@@ -116,7 +119,10 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: false,
       };
-      const wb = await testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx');
+      const wb = await testUtils.createTestBook(
+        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        'xlsx',
+      );
 
       return wb
         .commit()
@@ -171,15 +177,21 @@ describe('WorkbookWriter', () => {
             expect(ws2.getCell(address).value).to.equal(address);
           });
           expect(ws2.getCell('B1').font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
-          expect(ws2.getCell('B1').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+          expect(ws2.getCell('B1').alignment).to.deep.equal(
+            testUtils.styles.namedAlignments.middleCentre,
+          );
           expect(ws2.getCell('A2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
           expect(ws2.getCell('B2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
           expect(ws2.getCell('C2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
           expect(ws2.getCell('B3').font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
-          expect(ws2.getCell('B3').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+          expect(ws2.getCell('B3').alignment).to.deep.equal(
+            testUtils.styles.namedAlignments.middleCentre,
+          );
 
           expect(ws2.getColumn(2).font).to.deep.equal(testUtils.styles.fonts.comicSansUdB16);
-          expect(ws2.getColumn(2).alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+          expect(ws2.getColumn(2).alignment).to.deep.equal(
+            testUtils.styles.namedAlignments.middleCentre,
+          );
           expect(ws2.getColumn(2).width).to.equal(9);
 
           expect(ws2.getColumn(4).width).to.equal(undefined);
@@ -343,9 +355,11 @@ describe('WorkbookWriter', () => {
 
     it('serializes and deserializes dataValidations', async () => {
       const options = {filename: TEST_XLSX_FILE_NAME};
-      const wb = await testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', [
-        'dataValidations',
-      ]);
+      const wb = await testUtils.createTestBook(
+        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        'xlsx',
+        ['dataValidations'],
+      );
 
       return wb
         .commit()
@@ -366,9 +380,11 @@ describe('WorkbookWriter', () => {
           zlib: {level: 9}, // Sets the compression level.
         },
       };
-      const wb = await testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', [
-        'dataValidations',
-      ]);
+      const wb = await testUtils.createTestBook(
+        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        'xlsx',
+        ['dataValidations'],
+      );
 
       return wb
         .commit()
@@ -537,9 +553,11 @@ describe('WorkbookWriter', () => {
         useStyles: true,
         useSharedStrings: true,
       };
-      const wb = await testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', [
-        'conditionalFormatting',
-      ]);
+      const wb = await testUtils.createTestBook(
+        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        'xlsx',
+        ['conditionalFormatting'],
+      );
 
       return wb
         .commit()

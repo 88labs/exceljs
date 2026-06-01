@@ -151,25 +151,33 @@ describe('Worksheet', () => {
       expect(ws.getCell('B2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('B2').border).to.deep.equal(testUtils.styles.borders.doubleRed);
       expect(ws.getCell('B2').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B2').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B2').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('B2').numFmt).to.deep.equal(testUtils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('B3').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('B3').border).to.deep.equal(testUtils.styles.borders.doubleRed);
       expect(ws.getCell('B3').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B3').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B3').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('B3').numFmt).to.deep.equal(testUtils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('C2').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('C2').border).to.deep.equal(testUtils.styles.borders.doubleRed);
       expect(ws.getCell('C2').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C2').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C2').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('C2').numFmt).to.deep.equal(testUtils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('C3').font).to.deep.equal(testUtils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('C3').border).to.deep.equal(testUtils.styles.borders.doubleRed);
       expect(ws.getCell('C3').fill).to.deep.equal(testUtils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C3').alignment).to.deep.equal(testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C3').alignment).to.deep.equal(
+        testUtils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('C3').numFmt).to.deep.equal(testUtils.styles.numFmts.numFmt1);
     });
 

@@ -336,7 +336,9 @@ describe('WorksheetWriter', () => {
 
       expect(ws.getCell('A1').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('A1').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('A1').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('A1').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('A1').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('A1').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
 
@@ -344,14 +346,18 @@ describe('WorksheetWriter', () => {
 
       expect(ws.getCell('C1').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('C1').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('C1').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C1').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('C1').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('C1').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
 
       // when we 'get' the previously null cell, it should inherit the row styles
       expect(ws.getCell('B1').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('B1').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('B1').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B1').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('B1').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('B1').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
     });
@@ -377,7 +383,9 @@ describe('WorksheetWriter', () => {
 
       expect(ws.getCell('A1').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('A1').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('A1').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('A1').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('A1').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('A1').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
 
@@ -385,14 +393,18 @@ describe('WorksheetWriter', () => {
 
       expect(ws.getCell('A3').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('A3').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('A3').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('A3').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('A3').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('A3').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
 
       // when we 'get' the previously null cell, it should inherit the column styles
       expect(ws.getCell('A2').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
       expect(ws.getCell('A2').font).to.deep.equal(testutils.styles.fonts.comicSansUdB16);
-      expect(ws.getCell('A2').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('A2').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('A2').border).to.deep.equal(testutils.styles.borders.thin);
       expect(ws.getCell('A2').fill).to.deep.equal(testutils.styles.fills.redGreenDarkTrellis);
     });
@@ -474,7 +486,11 @@ describe('WorksheetWriter', () => {
     it.skip('add images', async () => {
       // const wb = new ExcelJS.stream.xlsx.WorkbookWriter();
       const filename = path.join(__dirname, 'test.xlsx');
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter({filename, useStyles: true, useSharedStrings: true});
+      const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+        filename,
+        useStyles: true,
+        useSharedStrings: true,
+      });
       const ws1 = wb.addWorksheet('foo');
       const ws2 = wb.addWorksheet('bar');
 

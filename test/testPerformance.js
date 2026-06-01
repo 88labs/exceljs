@@ -40,7 +40,8 @@ function randomName(length) {
   const text = [];
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (let i = 0; i < length; i++) text.push(possible.charAt(Math.floor(Math.random() * possible.length)));
+  for (let i = 0; i < length; i++)
+    text.push(possible.charAt(Math.floor(Math.random() * possible.length)));
 
   return text.join('');
 }
@@ -160,7 +161,7 @@ function runTests(options) {
               console.error(`Error deleting file:${ex.message}`);
             }
           })
-          .delay(1000)
+          .delay(1000),
       );
     }
     return promise.then(() => {
@@ -186,7 +187,7 @@ _.each(counts, count => {
             workbook,
             style,
             str,
-          })
+          }),
         );
       });
     });

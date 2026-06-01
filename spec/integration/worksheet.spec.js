@@ -256,7 +256,12 @@ describe('Worksheet', () => {
       expect(ws.getRow(2).values).to.deep.equal([, 1, 'John Doe', dateValue1]);
       expect(ws.getRow(3).values).to.deep.equal([, 2, 'Jane Doe', dateValue2]);
 
-      const values = [, [, 'Id', 'Name', 'D.O.B.'], [, 1, 'John Doe', dateValue1], [, 2, 'Jane Doe', dateValue2]];
+      const values = [
+        ,
+        [, 'Id', 'Name', 'D.O.B.'],
+        [, 1, 'John Doe', dateValue1],
+        [, 2, 'Jane Doe', dateValue2],
+      ];
       ws.eachRow((row, rowNumber) => {
         expect(row.values).to.deep.equal(values[rowNumber]);
         row.eachCell((cell, colNumber) => {
@@ -688,7 +693,7 @@ describe('Worksheet', () => {
             const ws = workbook.addWorksheet();
             ws.name = invalidCharacter;
           }).to.throw(
-            `Worksheet name ${invalidCharacter} cannot include any of the following characters: * ? : \\ / [ ]`
+            `Worksheet name ${invalidCharacter} cannot include any of the following characters: * ? : \\ / [ ]`,
           );
         }
       });
@@ -703,7 +708,7 @@ describe('Worksheet', () => {
             const ws = workbook.addWorksheet();
             ws.name = invalidName;
           }).to.throw(
-            `The first or last character of worksheet name cannot be a single quotation mark: ${invalidName}`
+            `The first or last character of worksheet name cannot be a single quotation mark: ${invalidName}`,
           );
         }
       });
@@ -1003,45 +1008,61 @@ describe('Worksheet', () => {
       expect(ws.getCell('B2').font).to.deep.equal(testutils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('B2').border).to.deep.equal(testutils.styles.borders.doubleRed);
       expect(ws.getCell('B2').fill).to.deep.equal(testutils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B2').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B2').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('B2').numFmt).to.equal(testutils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('B3').font).to.deep.equal(testutils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('B3').border).to.deep.equal(testutils.styles.borders.doubleRed);
       expect(ws.getCell('B3').fill).to.deep.equal(testutils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B3').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B3').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('B3').numFmt).to.equal(testutils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('C2').font).to.deep.equal(testutils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('C2').border).to.deep.equal(testutils.styles.borders.doubleRed);
       expect(ws.getCell('C2').fill).to.deep.equal(testutils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C2').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C2').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('C2').numFmt).to.equal(testutils.styles.numFmts.numFmt1);
 
       expect(ws.getCell('C3').font).to.deep.equal(testutils.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('C3').border).to.deep.equal(testutils.styles.borders.doubleRed);
       expect(ws.getCell('C3').fill).to.deep.equal(testutils.styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C3').alignment).to.deep.equal(testutils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C3').alignment).to.deep.equal(
+        testutils.styles.namedAlignments.middleCentre,
+      );
       expect(ws.getCell('C3').numFmt).to.equal(testutils.styles.numFmts.numFmt1);
     });
   });
 
   describe('When passed a non-Excel file', () => {
     it('Should not break when importing a .numbers file', () =>
-      new ExcelJS.Workbook().xlsx.readFile(path.resolve(__dirname, 'data', 'numbers.numbers')).then(workbook => {
-        expect(workbook).to.have.property('worksheets');
-        expect(workbook.worksheets).to.have.length(0);
-      }));
+      new ExcelJS.Workbook().xlsx
+        .readFile(path.resolve(__dirname, 'data', 'numbers.numbers'))
+        .then(workbook => {
+          expect(workbook).to.have.property('worksheets');
+          expect(workbook.worksheets).to.have.length(0);
+        }));
   });
 
   it('Should not break when importing an Excel file that contains a chartsheet', () =>
-    new ExcelJS.Workbook().xlsx.readFile(path.resolve(__dirname, 'data', 'chart-sheet.xlsx')).then(workbook => {
-      expect(workbook).to.have.property('worksheets');
-      expect(workbook.worksheets).to.have.length(1);
-    }));
+    new ExcelJS.Workbook().xlsx
+      .readFile(path.resolve(__dirname, 'data', 'chart-sheet.xlsx'))
+      .then(workbook => {
+        expect(workbook).to.have.property('worksheets');
+        expect(workbook.worksheets).to.have.length(1);
+      }));
 
   describe('Hidden', () => {
-    const fileList = ['google-sheets', 'libre-calc-as-excel-2007-365', 'libre-calc-as-office-open-xml-spreadsheet'];
+    const fileList = [
+      'google-sheets',
+      'libre-calc-as-excel-2007-365',
+      'libre-calc-as-office-open-xml-spreadsheet',
+    ];
 
     for (const file of fileList) {
       it(`Should set hidden attribute correctly (${file})`, done => {

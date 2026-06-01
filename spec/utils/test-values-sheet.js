@@ -146,7 +146,7 @@ const self = {
     expect(ws.getCell('B1').value).to.equal(self.testValues.str);
     expect(ws.getCell('B1').type).to.equal(ExcelJS.ValueType.String);
     expect(Math.abs(ws.getCell('C1').value.getTime() - self.testValues.date.getTime())).to.be.below(
-      options.dateAccuracy
+      options.dateAccuracy,
     );
     expect(ws.getCell('C1').type).to.equal(ExcelJS.ValueType.Date);
 
@@ -247,9 +247,9 @@ const self = {
       expect(ws.getCell('E5').numFmt).to.equal(self.testValues.numFmt2);
       expect(ws.getCell('E5').font).to.deep.equal(self.styles.fonts.broadwayRedOutline20);
 
-      expect(Math.abs(ws.getCell('F5').value.getTime() - self.testValues.date.getTime())).to.be.below(
-        options.dateAccuracy
-      );
+      expect(
+        Math.abs(ws.getCell('F5').value.getTime() - self.testValues.date.getTime()),
+      ).to.be.below(options.dateAccuracy);
       expect(ws.getCell('F5').type).to.equal(ExcelJS.ValueType.Date);
       expect(ws.getCell('F5').numFmt).to.equal(self.testValues.numFmtDate);
       expect(ws.getCell('F5').font).to.deep.equal(self.styles.fonts.comicSansUdB16);
