@@ -16,7 +16,7 @@ Install (CI retries up to 3× to ride out flaky registries):
 npm install
 ```
 
-Build (esbuild pipeline: bundles `lib/exceljs.browser.js` and `lib/exceljs.bare.js` as IIFE/ES2020 → dist/exceljs[.bare][.min].js + sourcemaps + LICENSE):
+Build (esbuild pipeline: bundles `lib/exceljs.browser.js` as ES2020 → `dist/exceljs.mjs` (ESM) + `dist/exceljs[.min].js` (IIFE) + sourcemaps + LICENSE):
 
 ```sh
 npm run build           # full build via scripts/build.mjs
@@ -85,14 +85,13 @@ Bug reports that mention "stream" or "large file" → streaming path. Plain `wor
 
 - `excel.js` — top-level entry; node-version check then `require('./lib/exceljs.nodejs.js')`.
 - `lib/exceljs.nodejs.js` — Node entry. Exports `Workbook`, `ModelContainer`, `stream.xlsx.{WorkbookWriter,WorkbookReader}`, and all enums.
-- `lib/exceljs.browser.js` — browser bundle entry; now a thin re-export of `./exceljs.bare.js` (polyfills removed since the build targets ES2020). Kept as a separate entry so consumers pinning `dist/exceljs.js` keep working.
-- `lib/exceljs.bare.js` — browser bundle entry **without** polyfills; consumers bring their own.
+- `lib/exceljs.browser.js` — browser bundle entry (`Workbook` + enums; no streaming API). No polyfills; the build targets ES2020.
 - `lib/doc/**` — the domain model (`Workbook`, `Worksheet`, `Row`, `Cell`, `Column`, `Range`, `Image`, `Note`, `Table`, `PivotTable`, `DefinedNames`, `DataValidations`, `ModelContainer`, `Anchor`, `enums`). Each exposes a `.model` getter/setter that round-trips through the Xform layer. See `MODEL.md` for the JSON shape.
 - `lib/xlsx/xform/**` — one class per OOXML element/part. Subfolders: `book`, `comment`, `core`, `drawing`, `pivot-table`, `sheet`, `simple`, `strings`, `style`, `table`. `composite-xform.js`, `list-xform.js`, `static-xform.js`, `base-xform.js` are the reusable bases.
 - `lib/xlsx/xml/theme1.{js,xml}` — embedded theme XML; treat as static asset.
 - `lib/csv/csv.js` — CSV path via `fast-csv`. Exposed as `workbook.csv`.
 - `lib/utils/**` — SAX wrapper (`parse-sax.js`), XML stream writer (`xml-stream.js`), zip stream (`zip-stream.js`), `stream-buf.js`, `string-buf.js`, `shared-strings.js`, `shared-formula.js`, `col-cache.js` (A1↔R1C1), `encryptor.js` (sheet protection), `copy-style.js`, `under-dash.js` (tiny lodash subset).
-- `dist/` and `build/` are generated. Never hand-edit. `dist/exceljs[.bare][.min].js` (+ `.map`) are the esbuild IIFE bundles published to consumers. There is no longer a `dist/es5/` (the Babel/ES5 surface was removed alongside the Grunt pipeline).
+- `dist/` and `build/` are generated. Never hand-edit. `dist/exceljs.mjs` is the ESM bundle that bundlers resolve through the `browser` condition of `package.json` `exports`; `dist/exceljs[.min].js` are IIFE bundles for `<script>` tags (global `ExcelJS`, no UMD/AMD). `scripts/build.mjs` generates the ESM entry's named exports from the keys of `lib/exceljs.browser.js`. There is no longer a `dist/es5/` (the Babel/ES5 surface was removed alongside the Grunt pipeline).
 
 ### Xform contract
 
@@ -116,9 +115,11 @@ There is also a top-level `test/` directory (not `spec/`) containing older scrip
 
 ## Conventions that bite
 
-- **Node syntax target**: `engines.node` is `^20.19.0 || >=22.12.0`. oxlint enforces `node/no-unsupported-features/es-syntax` at `>=20.19.0` and `excel.js` throws on Node <20.19. Write Node 20+ syntax; the browser bundle targets ES2020 via esbuild (no more Babel/ES5 fallback — older browsers including IE 11 are no longer supported).
+- **Node syntax target**: `engines.node` is `^20.19.0 || >=22.12.0`. Nothing lints for syntax newer than the floor (oxlint has no Node-target rule), so CI's Node 20 leg is the check. `excel.js` throws outside the `engines` range. Write Node 20+ syntax; the browser bundle targets ES2020 via esbuild (no more Babel/ES5 fallback — older browsers including IE 11 are no longer supported).
 - **Lint/format tooling** (from `.oxlintrc.json`): oxlint for correctness + suspicious categories. Project-specific rules: single quotes, semicolons required, `no-console` allows only `console.warn`, `no-unused-vars` (vars: all, args: none), `no-use-before-define` (variables/classes/functions: false). `max-len:120` is not in oxlint scope (follow-up if needed). `**/*.d.ts` is excluded from lint — `index.d.ts` is hand-maintained. Formatting (including trailing whitespace) is handled by oxfmt. Note: `for...in` is not used in `lib/` (grep confirms), so `no-restricted-syntax` is not needed; `no-trailing-spaces` is not an oxlint rule — oxfmt handles trailing whitespace instead.
-- **Pre-commit**: husky → `lint-staged` runs `oxfmt` then `oxlint --fix` on staged `*.{js,ts}`. Don't bypass with `--no-verify`.
+- **Pre-commit**: no hook is installed — the `husky` block in `package.json` is husky v4 syntax, which husky 9 ignores. Run `npm run lint:fix` before committing; CI's lint job runs `oxfmt --check` and `oxlint`. Don't add a `prepare` script to wire husky: git-dependency installs run it for consumers.
+- **Node ESM named exports**: `import {Workbook} from 'exceljs'` works only because Node's CommonJS lexer can read the exports of `lib/exceljs.nodejs.js` (shorthand properties) and `lib/doc/enums.js` (named `const`s exported in shorthand). Keep both in that shape; `spec/integration/exceljs-esm.spec.js` fails if a key stops being detected.
+- **Browser `crypto`**: `scripts/browser-crypto-shim.mjs` (backed by `@noble/hashes`) replaces Node `crypto` in the browser bundles and implements only `createHash` (sha1/256/384/512), `getHashes`, and `randomBytes`. A new `crypto` call in code reachable from `lib/exceljs.browser.js` needs a matching shim addition.
 - **Polyfill bookkeeping**: the bundle targets ES2020 (esbuild `target: 'es2020'`) and ships no polyfills. Consumers needing older runtimes bring their own. Don't reintroduce `core-js` / `regenerator-runtime`.
 - **PR template** (`.github/PULL_REQUEST_TEMPLATE.md`) requires a Summary, a Test plan, and, for typings changes, source-permalink evidence. Follow it.
 - **CI matrix**: Node 20/22/24 on Ubuntu and Windows. The Windows jobs disable `core.autocrlf` and enable `core.symlinks` — be mindful of CRLF if a test compares against a fixture XML file under `spec/integration/data/` or `spec/utils/data/`.

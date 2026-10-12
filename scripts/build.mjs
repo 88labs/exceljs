@@ -1,5 +1,6 @@
 import * as esbuild from 'esbuild';
 import {copyFile, rm, writeFile, mkdir} from 'node:fs/promises';
+import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {dirname, resolve} from 'node:path';
 
@@ -11,6 +12,8 @@ const repoRoot = resolve(__dirname, '..');
 // empty stub (fs — only used by Node-only filesystem helpers) or to the
 // equivalent browserify-era polyfill packages.
 const fsStubPath = resolve(repoRoot, 'build/empty-fs-stub.cjs');
+const browserEntry = resolve(repoRoot, 'lib/exceljs.browser.js');
+const esmEntryPath = resolve(repoRoot, 'build/exceljs.esm-entry.mjs');
 
 async function build() {
   await rm(resolve(repoRoot, 'build'), {recursive: true, force: true});
@@ -22,17 +25,26 @@ async function build() {
     '// empty fs shim for browser bundles — matches the historical browserify behavior\nmodule.exports = {};\n',
   );
 
+  // esbuild can only give a CommonJS entry a default export in ESM output.
+  // Generate a wrapper that re-exports every key of the browser entry by name,
+  // so `import {Workbook} from 'exceljs'` matches index.d.ts.
+  const exportNames = Object.keys(createRequire(import.meta.url)(browserEntry));
+  await writeFile(
+    esmEntryPath,
+    "import ExcelJS from '../lib/exceljs.browser.js';\n" +
+      'export default ExcelJS;\n' +
+      `export const {${exportNames.join(', ')}} = ExcelJS;\n`,
+  );
+
   const sharedOptions = {
     bundle: true,
-    format: 'iife',
-    globalName: 'ExcelJS',
     platform: 'browser',
     sourcemap: 'linked',
     target: 'es2020',
     alias: {
       fs: fsStubPath,
       buffer: 'buffer',
-      crypto: 'crypto-browserify',
+      crypto: resolve(repoRoot, 'scripts/browser-crypto-shim.mjs'),
       // Route `require('stream')` to the same `readable-stream` the rest of
       // lib/ (and fast-csv) already depends on — keeps one stream
       // implementation in the bundle instead of stream-browserify's nested,
@@ -50,26 +62,23 @@ async function build() {
     inject: [resolve(repoRoot, 'scripts/browser-process-shim.mjs')],
   };
 
+  const iifeOptions = {
+    ...sharedOptions,
+    entryPoints: [browserEntry],
+    format: 'iife',
+    globalName: 'ExcelJS',
+  };
+
   await Promise.all([
     esbuild.build({
       ...sharedOptions,
-      entryPoints: [resolve(repoRoot, 'lib/exceljs.bare.js')],
-      outfile: resolve(repoRoot, 'dist/exceljs.bare.js'),
+      entryPoints: [esmEntryPath],
+      outfile: resolve(repoRoot, 'dist/exceljs.mjs'),
+      format: 'esm',
     }),
+    esbuild.build({...iifeOptions, outfile: resolve(repoRoot, 'dist/exceljs.js')}),
     esbuild.build({
-      ...sharedOptions,
-      entryPoints: [resolve(repoRoot, 'lib/exceljs.browser.js')],
-      outfile: resolve(repoRoot, 'dist/exceljs.js'),
-    }),
-    esbuild.build({
-      ...sharedOptions,
-      entryPoints: [resolve(repoRoot, 'lib/exceljs.bare.js')],
-      outfile: resolve(repoRoot, 'dist/exceljs.bare.min.js'),
-      minify: true,
-    }),
-    esbuild.build({
-      ...sharedOptions,
-      entryPoints: [resolve(repoRoot, 'lib/exceljs.browser.js')],
+      ...iifeOptions,
       outfile: resolve(repoRoot, 'dist/exceljs.min.js'),
       minify: true,
     }),

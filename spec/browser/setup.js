@@ -3,7 +3,7 @@
 // ESM-first; the lib/ source is CommonJS, so we use the pre-built bundle
 // (produced by `npm run build`) instead of importing the source directly.
 import {beforeAll} from 'vitest';
-import bundleUrl from '../../dist/exceljs.bare.js?url';
+import bundleUrl from '../../dist/exceljs.js?url';
 
 beforeAll(
   () =>
@@ -12,7 +12,7 @@ beforeAll(
       script.src = bundleUrl;
       script.onload = resolve;
       script.onerror = () =>
-        reject(new Error('Failed to load dist/exceljs.bare.js — run `npm run build` first'));
+        reject(new Error('Failed to load dist/exceljs.js — run `npm run build` first'));
       document.head.appendChild(script);
     }),
 );

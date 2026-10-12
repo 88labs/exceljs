@@ -1,5 +1,5 @@
 /* global ExcelJS */
-// ExcelJS is a global injected by `spec/browser/setup.js` loading dist/exceljs.bare.js
+// ExcelJS is a global injected by `spec/browser/setup.js` loading dist/exceljs.js
 
 'use strict';
 
@@ -50,5 +50,16 @@ describe('ExcelJS', () => {
 
     const buffer = await wb.csv.writeBuffer();
     expect(buffer.toString()).toEqual('"Hello, World!",What time is it?\n7,12pm');
+  });
+
+  it('should protect a worksheet with a password', async () => {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('blort');
+    await ws.protect('secret', {spinCount: 10});
+
+    const {algorithmName, saltValue, hashValue} = ws.sheetProtection;
+    expect(algorithmName).toEqual('SHA-512');
+    expect(atob(saltValue).length).toEqual(16);
+    expect(atob(hashValue).length).toEqual(64);
   });
 });
