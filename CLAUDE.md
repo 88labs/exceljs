@@ -56,6 +56,13 @@ npx mocha --require spec/config/setup --require spec/config/setup-unit spec/unit
 npx mocha --require spec/config/setup spec/integration --recursive --grep "merges"
 ```
 
+Release tarball (`dist/` is gitignored, so git-tag installs get no browser bundles; consumers who need them install the tarball attached to the GitHub release). Don't move the build into a `prepack` hook: npm runs `prepack` when installing git dependencies.
+
+```sh
+npm run release:pack    # build + npm pack → exceljs-<version>.tgz
+gh release upload v<version> exceljs-<version>.tgz --repo 88labs/exceljs
+```
+
 Benchmark (do not commit benchmark output):
 
 ```sh

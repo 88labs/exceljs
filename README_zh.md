@@ -184,6 +184,12 @@ import ExcelJS, {Workbook} from 'exceljs';
 
 ## 浏览器端[⬆](#目录)<!-- Link generated with jump2header -->
 
+`dist/` 未提交到仓库，因此通过 git 标签（`github:88labs/exceljs#v5.0.0`）安装只能获得 Node 版本。如需浏览器包，请改为安装 GitHub release 中附带的 tarball：
+
+```jsonc
+"exceljs": "https://github.com/88labs/exceljs/releases/download/v5.0.0/exceljs-5.0.0.tgz"
+```
+
 浏览器版本提供 `Workbook` 和各枚举（不含流式 API）。Vite、webpack 5、esbuild 等打包工具会通过 `package.json` `exports` 中的 `browser` 条件将 `exceljs` 解析为 ESM 包 `dist/exceljs.mjs`，因此在浏览器代码中可以照常导入：
 
 ```javascript

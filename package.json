@@ -47,6 +47,7 @@
     "install-build": "npm ci && npm run build",
     "clean": "rimraf build/ dist/",
     "clean-build": "npm run clean && npm run build",
+    "release:pack": "npm run build && npm pack",
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
     "lint": "oxlint .",

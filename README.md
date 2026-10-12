@@ -189,6 +189,12 @@ import ExcelJS, {Workbook} from 'exceljs';
 
 ## Browser bundles[⬆](#contents)<!-- Link generated with jump2header -->
 
+`dist/` is not committed, so installing from a git tag (`github:88labs/exceljs#v5.0.0`) gives you the Node build only. To get the browser bundles, install the tarball attached to the GitHub release instead:
+
+```jsonc
+"exceljs": "https://github.com/88labs/exceljs/releases/download/v5.0.0/exceljs-5.0.0.tgz"
+```
+
 The browser build exposes `Workbook` and the enums (no streaming API). Bundlers such as Vite, webpack 5 and esbuild resolve `exceljs` to the ESM bundle `dist/exceljs.mjs` through the `browser` condition in `package.json` `exports`, so the usual import works in browser code:
 
 ```javascript
