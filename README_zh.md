@@ -176,65 +176,33 @@ npm install exceljs
 const ExcelJS = require('exceljs');
 ```
 
-## ES5 导入[⬆](#目录)<!-- Link generated with jump2header -->
-
-要使用 ES5 编译代码，请使用 *dist/es5* 路径。
+或者在 ES 模块中：
 
 ```javascript
-const ExcelJS = require('exceljs/dist/es5');
-```
-
-**注意：**ES5 版本对许多 polyfill 都具有隐式依赖，而 exceljs 不再明确添加。
-您需要在依赖项中添加 `core-js` 和 `regenerator-runtime`，并在导入 `exceljs` 之前在代码中包含以下引用：
-
-```javascript
-// exceljs 所需的 polyfills
-require('core-js/modules/es.promise');
-require('core-js/modules/es.string.includes');
-require('core-js/modules/es.object.assign');
-require('core-js/modules/es.object.keys');
-require('core-js/modules/es.symbol');
-require('core-js/modules/es.symbol.async-iterator');
-require('regenerator-runtime/runtime');
-
-const ExcelJS = require('exceljs/dist/es5');
-```
-
-对于 IE 11，您还需要一个 polyfill 以支持 unicode regex 模式。 例如，
-
-```js
-const rewritePattern = require('regexpu-core');
-const {generateRegexpuOptions} = require('@babel/helper-create-regexp-features-plugin/lib/util');
-
-const {RegExp} = global;
-try {
-  new RegExp('a', 'u');
-} catch (err) {
-  global.RegExp = function(pattern, flags) {
-    if (flags && flags.includes('u')) {
-      return new RegExp(rewritePattern(pattern, flags, generateRegexpuOptions({flags, pattern})));
-    }
-    return new RegExp(pattern, flags);
-  };
-  global.RegExp.prototype = RegExp.prototype;
-}
+import ExcelJS, {Workbook} from 'exceljs';
 ```
 
 ## 浏览器端[⬆](#目录)<!-- Link generated with jump2header -->
 
-ExcelJS 在 *dist/* 文件夹内发布了两个支持浏览器的包：
+`dist/` 未提交到仓库，因此通过 git 标签（`github:88labs/exceljs#v5.0.0`）安装只能获得 Node 版本。如需浏览器包，请改为安装 GitHub release 中附带的 tarball：
 
-一个是隐式依赖 `core-js` polyfills 的...
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
-<script src="exceljs.js"></script>
+```jsonc
+"exceljs": "https://github.com/88labs/exceljs/releases/download/v5.0.0/exceljs-5.0.0.tgz"
 ```
 
-另一个则没有...
-```html
-<script src="--your-project's-pollyfills-here--"></script>
-<script src="exceljs.bare.js"></script>
+浏览器版本提供 `Workbook` 和各枚举（不含流式 API）。Vite、webpack 5、esbuild 等打包工具会通过 `package.json` `exports` 中的 `browser` 条件将 `exceljs` 解析为 ESM 包 `dist/exceljs.mjs`，因此在浏览器代码中可以照常导入：
+
+```javascript
+import ExcelJS, {Workbook} from 'exceljs';
 ```
+
+如果使用普通 `<script>` 标签，请使用 IIFE 包，它会定义全局变量 `ExcelJS`：
+
+```html
+<script src="exceljs.min.js"></script>
+```
+
+所有包均以 ES2020 为目标，不包含 polyfill，也不再提供 UMD/AMD 版本。
 
 
 # 接口[⬆](#目录)<!-- Link generated with jump2header -->
@@ -2423,6 +2391,7 @@ workbookReader.on('error', (err) => {
 
 以下文件已预先捆绑在一起，并包含在 *dist* 文件夹中。
 
+* exceljs.mjs
 * exceljs.js
 * exceljs.min.js
 

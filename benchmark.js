@@ -9,7 +9,7 @@ const runs = 3;
       return new Promise((resolve, reject) => {
         // Data taken from http://eforexcel.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/
         const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(
-          './spec/integration/data/huge.xlsx'
+          './spec/integration/data/huge.xlsx',
         );
         workbookReader.read();
 
@@ -35,7 +35,7 @@ const runs = 3;
     await runProfiling('huge xlsx file async iteration', async () => {
       // Data taken from http://eforexcel.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/
       const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(
-        'spec/integration/data/huge.xlsx'
+        'spec/integration/data/huge.xlsx',
       );
       let worksheetCount = 0;
       let rowCount = 0;
@@ -60,7 +60,7 @@ async function runProfiling(name, run) {
   console.log('');
   console.log('####################################################');
   console.log(
-    `WARMUP: Current memory usage: ${currentMemoryUsage({runGarbageCollector: true})} MB`
+    `WARMUP: Current memory usage: ${currentMemoryUsage({runGarbageCollector: true})} MB`,
   );
   console.log(`WARMUP: ${name} profiling started`);
   const warmupStartTime = Date.now();
@@ -69,10 +69,10 @@ async function runProfiling(name, run) {
   console.log(
     `WARMUP: Current memory usage (before GC): ${currentMemoryUsage({
       runGarbageCollector: false,
-    })} MB`
+    })} MB`,
   );
   console.log(
-    `WARMUP: Current memory usage (after GC): ${currentMemoryUsage({runGarbageCollector: true})} MB`
+    `WARMUP: Current memory usage (after GC): ${currentMemoryUsage({runGarbageCollector: true})} MB`,
   );
 
   for (let i = 1; i <= runs; i += 1) {
@@ -85,12 +85,12 @@ async function runProfiling(name, run) {
     console.log(
       `RUN ${i}: Current memory usage (before GC): ${currentMemoryUsage({
         runGarbageCollector: false,
-      })} MB`
+      })} MB`,
     );
     console.log(
       `RUN ${i}: Current memory usage (after GC): ${currentMemoryUsage({
         runGarbageCollector: true,
-      })} MB`
+      })} MB`,
     );
   }
 }
