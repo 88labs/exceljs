@@ -5,8 +5,8 @@
  */
 
 const [major, minor] = process.versions.node.split('.').map(Number);
-if (major < 20 || (major === 20 && minor < 19)) {
-  throw new Error('Please upgrade Node.js to version 20.19.0 or later (or 22.12.0+).');
+if (major < 20 || (major === 20 && minor < 19) || major === 21 || (major === 22 && minor < 12)) {
+  throw new Error('ExcelJS requires Node.js ^20.19.0 or >=22.12.0.');
 }
 
 module.exports = require('./lib/exceljs.nodejs.js');
